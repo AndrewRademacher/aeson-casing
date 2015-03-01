@@ -27,4 +27,4 @@ The above code will produce JSON messages like the following...
 }
 ```
 - - -
-![Shared Acumen](http://images.sharedacumen.com/logo-github.png)
+<img alt="Shared Acumen" src="http://images.sharedacumen.com/logo-github.svg" width="300px"/>
