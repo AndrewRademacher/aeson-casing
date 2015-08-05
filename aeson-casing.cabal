@@ -1,6 +1,6 @@
 
 name:                aeson-casing
-version:             0.1.0.1
+version:             0.1.0.2
 synopsis:            Tools to change the formatting of field names in Aeson
                      instances.
 description:         Tools to change the formatting of field names in Aeson
@@ -26,7 +26,7 @@ library
                     ,   Data.Aeson.Casing
 
     build-depends:      base                >=4.7   && <5.0
-                    ,   aeson               >=0.8   && <0.10
+                    ,   aeson               >=0.8
 
 test-suite casing
     type:               exitcode-stdio-1.0
