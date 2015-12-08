@@ -1,6 +1,6 @@
 
 name:                aeson-casing
-version:             0.1.0.3
+version:             0.1.0.4
 synopsis:            Tools to change the formatting of field names in Aeson
                      instances.
 description:         Tools to change the formatting of field names in Aeson
@@ -33,6 +33,8 @@ test-suite casing
     main-is:            Main.hs
     hs-source-dirs:     test
     default-language:   Haskell2010
+
+    other-modules:      Data.Aeson.Casing.Test
 
     build-depends:      base                >=4.7   && <5.0
                     ,   tasty
