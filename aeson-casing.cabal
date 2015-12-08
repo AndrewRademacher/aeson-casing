@@ -1,6 +1,6 @@
 
 name:                aeson-casing
-version:             0.1.0.2
+version:             0.1.0.3
 synopsis:            Tools to change the formatting of field names in Aeson
                      instances.
 description:         Tools to change the formatting of field names in Aeson
