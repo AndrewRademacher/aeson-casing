@@ -26,5 +26,3 @@ The above code will produce JSON messages like the following...
     "last_name": "Doe"
 }
 ```
-- - -
-<img alt="Shared Acumen" src="http://images.sharedacumen.com/logo-github.svg" width="300px"/>
