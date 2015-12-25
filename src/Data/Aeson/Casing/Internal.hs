@@ -40,13 +40,13 @@ snakeCase = u . applyFirst toLower
                    | otherwise = x : u xs
 
 -- | Camel casing, where the words are separated by the first letter of each
--- word being a capitol. However, the first letter of the field is never a
--- capitol.
+-- word being a capital. However, the first letter of the field is never a
+-- capital.
 camelCase :: String -> String
 camelCase = applyFirst toLower
 
 -- | Pascal casing, where the words are separated by the first letter of each
--- word being a capitol. The first letter of the field is always a capitol.
+-- word being a capital. The first letter of the field is always a capital.
 pascalCase :: String -> String
 pascalCase = applyFirst toUpper
 
