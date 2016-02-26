@@ -2,7 +2,7 @@ module Data.Aeson.Casing.Internal where
 
 import           Data.Aeson.Types
 import           Data.Char
-
+import           Data.List
 -- | Creates an Aeson options object that drops a specific number of characters
 -- from the front of a field name, then applies a casing function.
 aesonDrop :: Int -> (String -> String) -> Options
@@ -34,10 +34,17 @@ aesonPrefix f = defaultOptions
 -- | Snake casing, where the words are always lower case and separated by an
 -- underscore.
 snakeCase :: String -> String
-snakeCase = u . applyFirst toLower
-    where u []                 = []
-          u (x:xs) | isUpper x = '_' : toLower x : snakeCase xs
-                   | otherwise = x : u xs
+snakeCase = formatParts . breakWords
+   where breakWords []     = []
+         breakWords (x:[]) = [x]
+         breakWords (x:rest@(y:xs))
+            | isUpper x && isLower y = '_' : x : breakWords rest
+            | isLower x && isUpper y = x : '_' : breakWords rest
+            | otherwise              = x : breakWords rest
+         formatParts = map toLower . removeDups . dropWhile (== '_')
+         removeDups []           = []
+         removeDups ('_':'_':xs) = '_' : removeDups xs
+         removeDups (x:xs)       = x : removeDups xs
 
 -- | Camel casing, where the words are separated by the first letter of each
 -- word being a capital. However, the first letter of the field is never a

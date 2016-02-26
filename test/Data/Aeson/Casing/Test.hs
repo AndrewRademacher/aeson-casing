@@ -31,6 +31,18 @@ case_prefix :: Assertion
 case_prefix = dropFPrefix "extraSampleField" @=? "SampleField"
 
 ----
+data Car = Car
+        { carFromCarMAX        :: Bool
+        , carIsFREAKINGCoolBro :: Bool
+        , carIsACoolThing      :: Bool
+        , carAB                :: Bool
+        } deriving (Eq, Show, Generic)
+
+instance ToJSON Car where
+   toJSON = genericToJSON $ aesonPrefix snakeCase
+instance FromJSON Car where
+   parseJSON = genericParseJSON $ aesonPrefix snakeCase
+
 
 data Person = Person
         { personFirstName :: String
@@ -41,6 +53,14 @@ instance ToJSON Person where
     toJSON = genericToJSON $ aesonPrefix snakeCase
 instance FromJSON Person where
     parseJSON = genericParseJSON $ aesonPrefix snakeCase
+
+
+case_encode_snake_upper_case :: Assertion
+case_encode_snake_upper_case = do
+      let p = Car True True True True
+          b = encode p
+      b @=? "{\"from_car_max\":true,\"ab\":true,\"is_freaking_cool_bro\":true,\"is_a_cool_thing\":true}"
+
 
 case_encode_snake :: Assertion
 case_encode_snake = do
