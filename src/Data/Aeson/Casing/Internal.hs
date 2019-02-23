@@ -34,10 +34,13 @@ aesonPrefix f = defaultOptions
 -- | Snake casing, where the words are always lower case and separated by an
 -- underscore.
 snakeCase :: String -> String
-snakeCase = u . applyFirst toLower
-    where u []                 = []
-          u (x:xs) | isUpper x = '_' : toLower x : snakeCase xs
-                   | otherwise = x : u xs
+snakeCase = symbCase '_'
+
+-- | Train casing, where the words are always lower case and separated by
+-- a hyphen
+
+trainCase :: String -> String
+trainCase = symbCase '-'
 
 -- | Camel casing, where the words are separated by the first letter of each
 -- word being a capital. However, the first letter of the field is never a
@@ -51,6 +54,13 @@ pascalCase :: String -> String
 pascalCase = applyFirst toUpper
 
 ----
+
+-- | Generic casing for symbol separated names
+symbCase :: Char -> (String -> String)
+symbCase sym =  u . applyFirst toLower
+  where u []                       = []
+        u (x:xs) | isUpper x = sym : toLower x : u xs
+                 | otherwise = x : u xs
 
 applyFirst :: (Char -> Char) -> String -> String
 applyFirst _ []     = []

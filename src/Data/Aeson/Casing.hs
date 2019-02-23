@@ -24,6 +24,7 @@ module Data.Aeson.Casing
     , aesonPrefix
 
     , snakeCase
+    , trainCase
     , camelCase
     , pascalCase
     ) where
