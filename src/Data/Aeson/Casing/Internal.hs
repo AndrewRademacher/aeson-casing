@@ -59,7 +59,7 @@ pascalCase = applyFirst toUpper
 symbCase :: Char -> (String -> String)
 symbCase sym =  u . applyFirst toLower
   where u []                       = []
-        u (x:xs) | isUpper x = sym : toLower x : u xs
+        u (x:xs) | isUpper x = sym : toLower x : symbCase sym xs
                  | otherwise = x : u xs
 
 applyFirst :: (Char -> Char) -> String -> String

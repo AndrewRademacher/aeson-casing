@@ -45,7 +45,10 @@ data Animal = Animal
         { animalFirstName :: String
         , animalBreedName :: String
         } deriving (Eq, Show, Generic)
-        
+
+data Config = Config
+        { configECRLogin :: Bool
+        } deriving (Eq, Show, Generic)
 
 instance ToJSON Person where
     toJSON = genericToJSON $ aesonPrefix snakeCase
@@ -57,6 +60,11 @@ instance ToJSON Animal where
 instance FromJSON Animal where
   parseJSON = genericParseJSON $ aesonPrefix trainCase
 
+instance ToJSON Config where
+  toJSON = genericToJSON $ aesonPrefix snakeCase
+instance FromJSON Config where
+  parseJSON = genericParseJSON $ aesonPrefix snakeCase
+
 johnDoe = Person "John" "Doe"
 
 johnDoeJSON = "{\"first_name\":\"John\",\"last_name\":\"Doe\"}"
@@ -64,6 +72,10 @@ johnDoeJSON = "{\"first_name\":\"John\",\"last_name\":\"Doe\"}"
 persianEgypt = Animal "Toffee" "Persian Cat"
 
 persianEgyptJSON = "{\"breed-name\":\"Persian Cat\",\"first-name\":\"Toffee\"}"
+
+logInto = Config True
+
+logIntoJSON = "{\"e_cr_login\":true}"
 
 case_encode_snake :: Assertion
 case_encode_snake = do
@@ -74,6 +86,16 @@ case_decode_snake :: Assertion
 case_decode_snake = do
         let p = decode johnDoeJSON :: Maybe Person
         p @=? Just johnDoe
+
+case_encode_snake2 :: Assertion
+case_encode_snake2 = do
+        let b = encode logInto
+        b @=? logIntoJSON
+
+case_decode_snake2 :: Assertion
+case_decode_snake2 = do
+        let p = decode logIntoJSON :: Maybe Config
+        p @=? Just logInto
 
 
 case_encode_train :: Assertion
